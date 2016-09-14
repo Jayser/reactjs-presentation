@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>example</title>
+
+    <script src="https://unpkg.com/react@15.3.1/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15.3.1/dist/react-dom.js"></script>
+    <script src="https://unpkg.com/babel-core@5.8.38/browser.min.js"></script>
+
+</head>
+<body>
+<div id="example"></div>
+<script type="text/babel">
+
+    const ComponentA = React.createClass({
+        displayName: "A",
+
+        render: function render() {
+            return React.createElement(
+                    "div",
+                    { className: "someClassName" },
+                    "Element Content ",
+                    this.props.name
+            );
+        }
+    });
+
+    ReactDOM.render(
+            React.createElement(ComponentA, { name: "John" }),
+            document.getElementById('example')
+    );
+
+</script>
+</body>
+</html>
