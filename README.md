@@ -5,6 +5,27 @@
 * Simple Component
     * React.createElement
     * JSX
+* Reusable Components
+    * Stateless Functions
+    * React.createClass
+    * Mixins 
+    * React.Component / No Mixins / No Autobinding
+    * Prop Validation
+* Lifecycle
+    * getInitialState
+    * getDefaultProps
+    * propTypes
+    * mixins
+    * statics 
+    * displayName
+    
+    * componentWillMount
+    * componentDidMount
+    * componentWillReceiveProps 
+    * shouldComponentUpdate
+    * componentWillUpdate
+    * componentDidUpdate
+    * componentWillUnmount
 
 ## What is ReactJS ?
 
@@ -93,7 +114,7 @@ an XML-like syntax called JSX.
 ```
 var ComponentA = React.createClass({
   render: function() {
-    return <div>Element Content {this.props.name}</div>;
+    return (<div>Element Content {this.props.name}</div>);
   }
 });
 
@@ -103,4 +124,79 @@ ReactDOM.render(
 );
 ```
 
+## Stateless Functions
 
+You may also define your React classes as a plain JavaScript function. For example using the stateless function syntax:
+
+```
+function HelloMessage(props) {
+  return <div>Hello {props.name}</div>;
+}
+
+HelloMessage.propTypes = {
+  name: React.PropTypes.string
+}
+
+HelloMessage.defaultProps = {
+  name: 'John Doe'
+}
+
+ReactDOM.render(<HelloMessage name="Mădălina"/>, mountNode);
+```
+
+## Mixins
+
+Components are the best way to reuse code in React, but sometimes very different components may share some common functionality. 
+
+```
+const LifeCycleMixin2 = {
+    componentWillMount() {
+        log('LifeCycleMixin2 componentWillMount');
+    }
+};
+
+const LifeCycleMixin = {
+  componentWillMount() {
+      log('LifeCycleMixin componentWillMount');
+  }
+};
+
+const WeatherApp = React.createClass({
+    mixins: [LifeCycleMixin, LifeCycleMixin2],
+    componentWillMount:  function() {
+      log('WeatherAppView componentWillMount');
+    },
+
+    render: function () {
+        return (<WeatherAppView />)
+    }
+});
+
+export default WeatherApp;
+```
+
+## React.Component
+
+You may also define your React classes as a plain JavaScript class. For example using ES6 class syntax:
+
+```
+class HelloMessage extends React.Component {
+  render() {
+    return <div>Hello {this.props.name}</div>;
+  }
+}
+
+ReactDOM.render(<HelloMessage name="Sebastian" />, mountNode);
+```
+
+## No Autobinding
+
+they don't automatically bind this to the instance
+
+```
+// You can use bind() to preserve `this`
+<div onClick={this.tick.bind(this)}>
+
+// Or you can use arrow functions
+<div onClick={() => this.tick()}>
+```
